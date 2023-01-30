@@ -26,6 +26,17 @@ function App() {
       })
   }, []);
 
+  function refreshItems(){
+    axios.get('http://localhost:8000/items/')
+      .then(res => {
+        setTodoItems(res.data);
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   function addTodoItem(item) {
     // posting to the backend
     axios.post('http://localhost:8000/users/1/items/', item)
@@ -39,13 +50,15 @@ function App() {
       )
   }
 
-  function on_item_click() {
+  function on_item_click(item) {
     console.log("clicked");
 
+    item.is_on = !item.is_on;
+
     // updating the backend
-    axios.put('http://localhost:8000/items/1/', {isDone: true})
+    axios.put('http://localhost:8000/items/'+item.id, item)
       .then(res => {
-        console.log(res.data);
+        refreshItems()
       }
     )
   }
@@ -54,9 +67,9 @@ function App() {
     <div className="App">
       <h1>Todo App</h1>
       <AddTodoItem addTodoItem={addTodoItem}/>
-      <div className="todo-list">
+      <div className="todo-list-container">
         {todoItems.map((item, index) => (
-          <TodoItem key={index} title={item.title} description={item.description} isDone={item.isDone} on_item_click={on_item_click} />
+          <TodoItem key={index} item={item} on_item_click={on_item_click} />
         ))}
       </div>
       

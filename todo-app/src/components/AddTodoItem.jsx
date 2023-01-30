@@ -5,7 +5,7 @@ const AddTodoItem = (props) => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
-    const [item, setItem] = useState({title: '', description: ''})
+    let item = {title: '', description: ''}
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -14,15 +14,21 @@ const AddTodoItem = (props) => {
         } else if (name === 'input_description') {
             setDescription(value)
         }
-        setItem({title: title, description: description})
+    }
+
+    const addTodoItem = () => {
+        item.title = title
+        item.description = description
+        props.addTodoItem(item)
     }
 
   return (
     <div>
         <div>AddTodo</div>
-        <input type="text" name="input_title" id="input_title" onChange={handleChange} />
-        <input type="text" name="input_description" id="input_description" onChange={handleChange} />
-        <button onClick={() => {props.addTodoItem(item)}  }>Add</button>
+        <input type="text" name="input_title" id="input_title" onChange={handleChange} value={title}/>
+        <input type="text" name="input_description" id="input_description" onChange={handleChange} value={description}/>
+        {title} {description}
+        <button onClick={() => {addTodoItem({})}  }>Add</button>
     </div>
   )
 }

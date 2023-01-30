@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './TodoItem.css'
 
 const TodoItem = (props) => {
+  const item = props.item
+
   return (
-    <div className={props.isDone ? 'todo-item completed' : 'todo-item'} onClick={props.on_item_click}>
-        <div className="title">{props.title}</div>
-        <div className="description">{props.description}</div>
+    <div className={item.is_on ? 'todo-item completed' : 'todo-item'} onClick={() => {props.on_item_click(item)} }>
+        <div className="title">{item.title}</div>
+        <div className="description">{item.description}</div>
     </div>
   )
 }

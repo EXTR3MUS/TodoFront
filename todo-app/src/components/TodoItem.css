@@ -5,12 +5,26 @@
     padding: 0.5rem;
     border-bottom: 1px solid #ccc;
     margin-bottom: 0.5rem;
-    max-width: 300px;
+    width: 500px;
+    height: 30px;
+
+    border-radius: 5px;
 
     background-color: rgb(96, 144, 177);
 }
 
+.todo-item:hover{
+    cursor: pointer;
+    background-color: rgb(83, 116, 138);
+}
+
 .completed{
     text-decoration: line-through;
-    background-color: rgb(66, 80, 90);
+    background-color: rgb(66, 90, 69);
 }
+
+.todo-item.completed:hover{
+    text-decoration: line-through;
+    background-color: rgb(57, 77, 60);
+}
+
