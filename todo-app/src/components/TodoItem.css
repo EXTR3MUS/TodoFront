@@ -1,0 +1,16 @@
+.todo-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 0.5rem;
+    max-width: 300px;
+
+    background-color: rgb(96, 144, 177);
+}
+
+.completed{
+    text-decoration: line-through;
+    background-color: rgb(66, 80, 90);
+}
