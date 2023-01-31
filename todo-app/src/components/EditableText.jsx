@@ -56,6 +56,13 @@ const EditableText = (props) => {
                 onClick={on_click}
                 value={props.children}  
                 onBlur={(event) => {props.on_complete_edit()}}
+                onKeyUp={(event) => {
+                    if (event.key === 'Enter') {
+                        props.on_complete_edit()
+                        // set out of focus
+                        event.target.blur()
+                    }
+                }}
             />
     </div>
   )

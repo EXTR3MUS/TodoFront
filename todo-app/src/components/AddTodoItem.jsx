@@ -21,16 +21,19 @@ const AddTodoItem = (props) => {
         item.title = title
         item.description = description
         props.addTodoItem(item)
-        setTitle('')
-        setDescription('')
+    }
+
+    const on_submit = (e) => {
+        e.preventDefault()
+        addTodoItem()
     }
 
   return (
-    <div className='form'>
+    <form className='form' onSubmit={on_submit}>
         <input type="text" placeholder='title' name="input_title" id="input_title" onChange={handleChange} value={title}/>
         <input type="text" placeholder='description' name="input_description" id="input_description" onChange={handleChange} value={description}/>
-        <button onClick={() => {addTodoItem({})}  }>Add Item</button>
-    </div>
+        <button type="submit">Add Item</button>
+    </form>
   )
 }
 
