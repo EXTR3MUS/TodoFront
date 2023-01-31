@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import './AddTodoItem.css'
 
 const AddTodoItem = (props) => {
     const [title, setTitle] = useState('')
@@ -20,15 +21,15 @@ const AddTodoItem = (props) => {
         item.title = title
         item.description = description
         props.addTodoItem(item)
+        setTitle('')
+        setDescription('')
     }
 
   return (
-    <div>
-        <div>AddTodo</div>
-        <input type="text" name="input_title" id="input_title" onChange={handleChange} value={title}/>
-        <input type="text" name="input_description" id="input_description" onChange={handleChange} value={description}/>
-        {title} {description}
-        <button onClick={() => {addTodoItem({})}  }>Add</button>
+    <div className='form'>
+        <input type="text" placeholder='title' name="input_title" id="input_title" onChange={handleChange} value={title}/>
+        <input type="text" placeholder='description' name="input_description" id="input_description" onChange={handleChange} value={description}/>
+        <button onClick={() => {addTodoItem({})}  }>Add Item</button>
     </div>
   )
 }

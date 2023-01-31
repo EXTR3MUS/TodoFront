@@ -1,0 +1,50 @@
+.editable-text{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    font-size: 12pt;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+
+    box-sizing:border-box;
+
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+
+.editable-text-input{
+    background-color: inherit;
+    display: flex;
+    /* width: 100px; */
+    height: 40px;
+    font-size: 12pt;
+    padding: 0;
+    margin: 0;
+    box-sizing:border-box;
+
+    border: none;
+    font-family:inherit;
+    font-size: inherit;
+
+    transition-duration: 0ms;
+
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.editable-text-input:focus{
+    outline: none;
+
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}

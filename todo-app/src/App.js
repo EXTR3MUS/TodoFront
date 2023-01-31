@@ -2,35 +2,35 @@ import './App.css';
 import axios from 'axios';
 import TodoItem from './components/TodoItem';
 import AddTodoItem from './components/AddTodoItem';
+import EditableText from './components/EditableText';
 import {useState, useEffect} from 'react';
 
 
 function App() {
-  // const initialTodoItems = [
-  //   { title:"task 1", description: "description 1", isDone: true },
-  //   { title:"task 2", description: "description 2", isDone: true },
-  //   { title:"task 3", description: "description 3", isDone: false },
-  //   { title:"task 4", description: "description 4", isDone: false }
-  // ];
-
   const [todoItems, setTodoItems] = useState([]);
 
+  function is_on_comparator(a, b){
+      // sorting the items to show the ones that is_on is true last
+    if (a.is_on && !b.is_on) {
+      return 1;
+    }
+    if (!a.is_on && b.is_on) {
+      return -1;
+    }
+    return 0;
+  }
+
   useEffect(() => {
-    axios.get('http://localhost:8000/items/')
-      .then(res => {
-        setTodoItems(res.data);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    refreshItems();
   }, []);
 
   function refreshItems(){
     axios.get('http://localhost:8000/items/')
       .then(res => {
-        setTodoItems(res.data);
-        console.log(res.data);
+        let newTodoItems = res.data;
+        newTodoItems.sort(is_on_comparator);
+        setTodoItems(newTodoItems);
+        console.log(newTodoItems)
       })
       .catch(err => {
         console.log(err);
@@ -38,10 +38,24 @@ function App() {
   }
 
   function addTodoItem(item) {
+    item.is_on = false;
     // posting to the backend
     axios.post('http://localhost:8000/users/1/items/', item)
       .then(res => {
-        setTodoItems([...todoItems, res.data]);
+        refreshItems();
+      }
+      )
+      .catch(err => {
+        console.log(err);
+      }
+      )
+  }
+
+  function deleteTodoItem(item) {
+    // deleting from the backend
+    axios.delete('http://localhost:8000/items/' + item.id)
+      .then(res => {
+        refreshItems()
       }
       )
       .catch(err => {
@@ -56,7 +70,18 @@ function App() {
     item.is_on = !item.is_on;
 
     // updating the backend
-    axios.put('http://localhost:8000/items/'+item.id, item)
+    axios.put('http://localhost:8000/items/' + item.id, item)
+      .then(res => {
+        refreshItems()
+      }
+    )
+  }
+
+  function on_complete_edit(item){
+    console.log("completed edit");
+
+    // updating the backend
+    axios.put('http://localhost:8000/items/' + item.id, item)
       .then(res => {
         refreshItems()
       }
@@ -69,10 +94,9 @@ function App() {
       <AddTodoItem addTodoItem={addTodoItem}/>
       <div className="todo-list-container">
         {todoItems.map((item, index) => (
-          <TodoItem key={index} item={item} on_item_click={on_item_click} />
+          <TodoItem key={index} item={item} on_item_click={on_item_click} on_complete_edit={on_complete_edit} on_delete_click={deleteTodoItem} />
         ))}
       </div>
-      
     </div>
   );
 }
