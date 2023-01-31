@@ -31,39 +31,23 @@ const EditableText = (props) => {
 
   return (
     <div>
-        {/* {isEditing ? (
-            <input 
-                type="text" 
-                autoFocus 
-                className='editable-text-input'
-                value={value} 
-                onChange={(e) => {setValue(e.target.value)}} 
-                onBlur={(event) => {setIsEditing(false)}} 
-            />
-        ) : (
-            <div 
-                onClick={(event) => {setIsEditing(true)}}
-                className='editable-text'
-            >{value}</div>
-        )} */}
-
-            <input 
-                style={props.style}
-                type="text" 
-                className={'editable-text-input '+props.className}
-                ref={inputRef}
-                onChange={on_change}
-                onClick={on_click}
-                value={props.children}  
-                onBlur={(event) => {props.on_complete_edit()}}
-                onKeyUp={(event) => {
-                    if (event.key === 'Enter') {
-                        props.on_complete_edit()
-                        // set out of focus
-                        event.target.blur()
-                    }
-                }}
-            />
+        <input 
+            style={props.style}
+            type="text" 
+            className={'editable-text-input '+props.className}
+            ref={inputRef}
+            onChange={on_change}
+            onClick={on_click}
+            value={props.children}  
+            onBlur={(event) => {props.on_complete_edit()}}
+            onKeyUp={(event) => {
+                if (event.key === 'Enter') {
+                    props.on_complete_edit()
+                    // set out of focus
+                    event.target.blur()
+                }
+            }}
+        />
     </div>
   )
 }
